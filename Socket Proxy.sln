@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socket Proxy", "Socket Proxy\Socket Proxy.csproj", "{E00E9764-CBBB-4610-917D-020E2E8F4E23}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Socket Proxy Setup", "Socket Proxy Setup\Socket Proxy Setup.vdproj", "{31FAFFA7-CDF7-4C66-BA5A-7AACF2E0CCA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E00E9764-CBBB-4610-917D-020E2E8F4E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00E9764-CBBB-4610-917D-020E2E8F4E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00E9764-CBBB-4610-917D-020E2E8F4E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00E9764-CBBB-4610-917D-020E2E8F4E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31FAFFA7-CDF7-4C66-BA5A-7AACF2E0CCA7}.Debug|Any CPU.ActiveCfg = Debug
+		{31FAFFA7-CDF7-4C66-BA5A-7AACF2E0CCA7}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59884B40-B9C6-4634-9DD1-C793376D30BD}
+	EndGlobalSection
+EndGlobal

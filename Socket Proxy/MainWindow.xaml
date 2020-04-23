@@ -1,0 +1,158 @@
+﻿<Window x:Class="Socket_Proxy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Socket_Proxy"
+        mc:Ignorable="d"
+        Title="Socket Proxy"
+        Height="750" 
+        Width="800"
+        MinHeight="200" 
+        MinWidth="350"
+        Loaded="Window_Loaded" 
+        Icon="app-network.ico"
+        >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top" Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Click="MenuItemOpen_Click"/>
+                <MenuItem Header="_Save" Click="MenuItemSave_Click"/>
+                <Separator/>
+                <MenuItem Header="_Exit" Click="MenuItemExit_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Option">
+                <MenuItem Header="_Append Timestamp" IsCheckable="True" IsChecked="True" x:Name="MenuItemAppnendTimestamp" Click="MenuItemAppnendTimestamp_Click"/>
+                <MenuItem Header="_Append Request Timespan"  IsCheckable="True" IsChecked="True"  x:Name="MenuItemAppendReqTimespan" Click="MenuItemAppendReqTimespan_Click"/>
+                <MenuItem Header="_Append Response Timespan"  IsCheckable="True" IsChecked="True" x:Name="MenuItemAppendResTimespan" Click="MenuItemAppendResTimespan_Click"/>
+                <MenuItem Header="_Display Rawdata"  IsCheckable="True" IsChecked="False" x:Name="MenuItemDisplayRawdata" Click="MenuItemDisplayRawdata_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="_Help">
+                <MenuItem Header="_Update" Click="MenuItemUpdate_Click"/>
+                <MenuItem Header="_About" Click="MenuItemAbout_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <ToolBar Grid.Row="1">
+            <Button Content="Open" Click="ToolBarButtonOpen_Click"/>
+            <Separator/>
+            <Button Content="Save" Click="ToolBarButtonSave_Click"/>
+            <Separator/>
+            <Button Content="Copy Text" x:Name="ToolBarButtonCopyText" Click="ToolBarButtonCopyText_Click"/>
+            <Separator/>
+            <Button Content="Clear" Click="ToolBarButtonClear_Click"/>
+        </ToolBar>
+
+        <GroupBox Header="Control" Grid.Row="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="95"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="Bind Interface:"/>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Remote Host:"/>
+
+                <ComboBox x:Name="ComboBoxBindIp" Grid.Row="0" Grid.Column="1" Height="25" Margin="5,0"  IsEditable="True" Text="0.0.0.0" />
+                <ComboBox x:Name="ComboBoxRemoteIp" Grid.Row="1" Grid.Column="1" Height="25" Margin="5,0" IsEditable="True" Text="0.0.0.0" />
+
+                <TextBox x:Name="TextBoxLocalPort" Grid.Row="0" Grid.Column="2" Height="25" TextAlignment="Center" Margin="5,0" Text="8080"/>
+                <TextBox x:Name="TextBoxRemotePort" Grid.Row="1" Grid.Column="2" Height="25" TextAlignment="Center" Margin="5,0" Text="8080"/>
+
+                <Button x:Name="ButtonAdd" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Width="80" Height="50" HorizontalAlignment="Left" Margin="5,0" Content="Add" Click="ButtonAdd_Click"/>
+                <Button x:Name="ButtonRemove" Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Width="80" Height="50" HorizontalAlignment="Left" Margin="5,0" Content="Remove" Click="ButtonRemove_Click"/>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Routes" Grid.Row="3">
+            <Grid x:Name="GridTestCase">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Content="#" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Content="Bind IF" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Content="Remote EP" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Content="Tunnels" Grid.Row="0" Grid.Column="3" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Content="Upload" Grid.Row="0" Grid.Column="4" HorizontalContentAlignment="Center" FontWeight="Bold" />
+                <Label Content="Download" Grid.Row="0" Grid.Column="5" HorizontalContentAlignment="Center" FontWeight="Bold" />
+
+                <ListBox x:Name="ListBoxRoutes" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7">
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <ScrollViewer>
+                                <ItemsPresenter></ItemsPresenter>
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="60"></ColumnDefinition>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Grid.Column="0" Height="12" Width="12" Fill="{Binding StatusIcon}" />
+                                <Label Grid.Column="1" Content="{Binding LocalEp}" Foreground="{Binding TextColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label Grid.Column="2" Content="{Binding RemoteEp}" Foreground="{Binding TextColor}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label Grid.Column="3" Content="{Binding TunnelCount}" Foreground="{Binding TextColor}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label Grid.Column="4" Content="{Binding UploadedBytes}" Foreground="{Binding TextColor}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label Grid.Column="5" Content="{Binding DownloadedBytes}" Foreground="{Binding TextColor}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </GroupBox>
+
+        <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" />
+
+        <GroupBox Header="Events" Grid.Row="5">
+            <RichTextBox x:Name="RichTechBoxEvents" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <RichTextBox.Resources>
+                    <Style TargetType="{x:Type Paragraph}">
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </RichTextBox.Resources>
+            </RichTextBox>
+        </GroupBox>
+
+    </Grid>
+</Window>
